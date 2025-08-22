@@ -27,17 +27,27 @@ class Module:
     def modules(self) -> Sequence[Module]:
         """Return the direct child modules of this module."""
         m: Dict[str, Module] = self.__dict__["_modules"]
+        # this looks like an interface for outputting the value item from self.__dict__
         return list(m.values())
 
     def train(self) -> None:
         """Set the mode of this module and all descendent modules to `train`."""
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+
+        self.training = True
+        for m in self._modules.values():
+            m.train()
+        
+        # raise NotImplementedError("Need to implement for Task 0.4")
 
     def eval(self) -> None:
         """Set the mode of this module and all descendent modules to `eval`."""
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        self.training = False
+        for m in self._modules.values():
+            m.eval()
+
+        # raise NotImplementedError("Need to implement for Task 0.4")
 
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """Collect all the parameters of this module and its descendents.
@@ -48,12 +58,15 @@ class Module:
 
         """
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        # return sequence with each element a tuple (str, torch.nn.parameter.Parameter)
+        return list(self._parameters.items())
+
+
 
     def parameters(self) -> Sequence[Parameter]:
         """Enumerate over all the parameters of this module and its descendents."""
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        return list(self._parameters.values())
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """Manually add a parameter. Useful helper for scalar parameters.
@@ -72,7 +85,8 @@ class Module:
         self.__dict__["_parameters"][k] = val
         return val
 
-    def __setattr__(self, key: str, val: Parameter) -> None:
+    # this val is defined to be Parameter type, but I don't think it's limited to Para type.
+    def __setattr__(self, key: str, val: Any) -> None:
         if isinstance(val, Parameter):
             self.__dict__["_parameters"][key] = val
         elif isinstance(val, Module):
