@@ -93,7 +93,14 @@ class Scalar:
 
     def __add__(self, b: ScalarLike) -> Scalar:
         # TODO: Implement for Task 1.2.
-        raise NotImplementedError("Need to implement for Task 1.2")
+        
+        # so it should return an new instance that keeps track of the history
+
+
+
+        
+
+        # raise NotImplementedError("Need to implement for Task 1.2")
 
     def __bool__(self) -> bool:
         return bool(self.data)
