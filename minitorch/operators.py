@@ -64,7 +64,7 @@ def sigmoid(x: float):
     return 1 / (1 + math.exp(-x)) if x >= 0 else math.exp(x) / (1 + math.exp(x))
 
 def relu(x: float):
-    return x if x > 0 else 0
+    return x if x > 0 else 0.0
 
 def log(x: float):
     return math.log(x)

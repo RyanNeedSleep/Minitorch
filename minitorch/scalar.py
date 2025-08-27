@@ -67,7 +67,7 @@ class Scalar:
         v: float,
         back: ScalarHistory = ScalarHistory(),
         name: Optional[str] = None,
-    ):
+        ):
         global _var_count
         _var_count += 1
         self.unique_id = _var_count
@@ -93,8 +93,9 @@ class Scalar:
 
     def __add__(self, b: ScalarLike) -> Scalar:
         # TODO: Implement for Task 1.2.
-        
+        return Add.apply(self, b)
         # so it should return an new instance that keeps track of the history
+
 
 
 
@@ -145,7 +146,8 @@ class Scalar:
 
     def relu(self) -> Scalar:
         # TODO: Implement for Task 1.2.
-        raise NotImplementedError("Need to implement for Task 1.2")
+        return ReLU.apply(self)
+        # raise NotImplementedError("Need to implement for Task 1.2")
 
     # Variable elements for backprop
 
